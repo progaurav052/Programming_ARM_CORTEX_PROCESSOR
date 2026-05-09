@@ -1,0 +1,10 @@
+22:34:08 **** Incremental Build of configuration Debug for project stack_activities ****
+make -j10 all 
+arm-none-eabi-size  stack_activities.elf 
+   text	   data	    bss	    dec	    hex	filename
+   5248	     92	   1900	   7240	   1c48	stack_activities.elf
+Finished building: default.size.stdout
+ 
+
+22:34:08 Build Finished. 0 errors, 0 warnings. (took 164ms)
+

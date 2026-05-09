@@ -1,24 +1,21 @@
-21:10:16 **** Build of configuration Debug for project Test_inline_assembly ****
+22:33:59 **** Incremental Build of configuration Debug for project stack_activities ****
 make -j10 all 
-arm-none-eabi-gcc -mcpu=cortex-m4 -g3 -DDEBUG -c -x assembler-with-cpp -MMD -MP -MF"Startup/startup_stm32f407vgtx.d" -MT"Startup/startup_stm32f407vgtx.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Startup/startup_stm32f407vgtx.o" "../Startup/startup_stm32f407vgtx.s"
 arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I../Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
-arm-none-eabi-gcc "../Src/syscalls.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I../Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/syscalls.d" -MT"Src/syscalls.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/syscalls.o"
-arm-none-eabi-gcc "../Src/sysmem.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I../Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/sysmem.d" -MT"Src/sysmem.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/sysmem.o"
-arm-none-eabi-gcc -o "Test_inline_assembly.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/ggpai/Desktop/Prog_arm/Test_inline_assembly/STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Test_inline_assembly.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: Test_inline_assembly.elf
+arm-none-eabi-gcc -o "stack_activities.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/ggpai/Desktop/Prog_arm/stack_activities/STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="stack_activities.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: stack_activities.elf
  
-arm-none-eabi-size  Test_inline_assembly.elf 
-arm-none-eabi-objdump -h -S Test_inline_assembly.elf  > "Test_inline_assembly.list"
+arm-none-eabi-size  stack_activities.elf 
+arm-none-eabi-objdump -h -S stack_activities.elf  > "stack_activities.list"
    text	   data	    bss	    dec	    hex	filename
-    672	      0	   1568	   2240	    8c0	Test_inline_assembly.elf
+   5248	     92	   1900	   7240	   1c48	stack_activities.elf
 Finished building: default.size.stdout
  
-Finished building: Test_inline_assembly.list
+Finished building: stack_activities.list
  
-21:10:46 **** Incremental Build of configuration Debug for project Test_inline_assembly ****
+22:34:08 **** Incremental Build of configuration Debug for project stack_activities ****
 make -j10 all 
-arm-none-eabi-size  Test_inline_assembly.elf 
+arm-none-eabi-size  stack_activities.elf 
    text	   data	    bss	    dec	    hex	filename
-    672	      0	   1568	   2240	    8c0	Test_inline_assembly.elf
+   5248	     92	   1900	   7240	   1c48	stack_activities.elf
 Finished building: default.size.stdout
  
