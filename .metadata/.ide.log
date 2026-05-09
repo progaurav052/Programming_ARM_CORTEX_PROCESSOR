@@ -748,3 +748,19 @@
 2026-05-09 22:34:08,904 [ERROR] ConfigurationRetriever:142 - IOException on connection: PKIX path building failed: sun.security.provider.certpath.SunCertPathBuilderException: unable to find valid certification path to requested target
 2026-05-09 22:34:08,993 [ERROR] ConfigurationRetriever:142 - IOException on connection: PKIX path building failed: sun.security.provider.certpath.SunCertPathBuilderException: unable to find valid certification path to requested target
 2026-05-09 22:34:09,038 [ERROR] ConfigurationRetriever:142 - IOException on connection: PKIX path building failed: sun.security.provider.certpath.SunCertPathBuilderException: unable to find valid certification path to requested target
+2026-05-09 23:42:13,202 [INFO] McuFinderGlobals:76 - Set McuFinderConnectedMode to false
+2026-05-09 23:42:13,214 [INFO] MultiScanPanel:200 - Auto-refresh data requested => check proxy status ongoing
+2026-05-09 23:42:13,215 [INFO] MultiScanPanel:204 - Proxy status is invalid
+2026-05-09 23:42:13,217 [INFO] FinderPluginLoader:96 - Searching for filters in installed packs
+2026-05-09 23:42:14,410 [WARN] DetailPanel:346 - Failed to get advertising image, set to default
+2026-05-09 23:42:18,960 [INFO] MultiScanPanel:200 - Auto-refresh data requested => check proxy status ongoing
+2026-05-09 23:42:18,966 [INFO] MultiScanPanel:204 - Proxy status is invalid
+2026-05-09 23:42:19,149 [WARN] DetailPanel:346 - Failed to get advertising image, set to default
+2026-05-09 23:42:42,735 [ERROR] ConfigurationRetriever:142 - IOException on connection: PKIX path building failed: sun.security.provider.certpath.SunCertPathBuilderException: unable to find valid certification path to requested target
+2026-05-09 23:42:42,789 [ERROR] ConfigurationRetriever:142 - IOException on connection: PKIX path building failed: sun.security.provider.certpath.SunCertPathBuilderException: unable to find valid certification path to requested target
+2026-05-09 23:42:42,827 [ERROR] ConfigurationRetriever:142 - IOException on connection: PKIX path building failed: sun.security.provider.certpath.SunCertPathBuilderException: unable to find valid certification path to requested target
+2026-05-09 23:42:42,834 [INFO] McuFinderGlobals:76 - Set McuFinderConnectedMode to true
+2026-05-09 23:42:42,839 [INFO] ApiDb:448 - Save user favorites file /Users/ggpai/.stm32cubeide/favorites.mcus.txt: 0 item(s)
+2026-05-09 23:42:42,839 [INFO] ApiDb:452 - User favorites MCUs=[]
+2026-05-09 23:42:42,846 [INFO] ApiDb:448 - Save user favorites file /Users/ggpai/.stm32cubeide/favorites.boards.txt: 1 item(s)
+2026-05-09 23:42:42,846 [INFO] ApiDb:452 - User favorites Boards=[STM32F407G-DISC1]

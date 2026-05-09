@@ -626,3 +626,6 @@ Caused by: sun.security.provider.certpath.SunCertPathBuilderException: unable to
 
 !ENTRY org.eclipse.cdt.core 1 0 2026-05-09 21:53:33.431
 !MESSAGE Indexed 'stack_activities' (3 sources, 53 headers) in 1.95 sec: 1,954 declarations; 2,863 references; 0 unresolved inclusions; 2 syntax errors; 2 unresolved names (0.042%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2026-05-09 23:42:44.422
+!MESSAGE Indexed 'Exception_entry_exit' (3 sources, 53 headers) in 2.01 sec: 1,954 declarations; 2,863 references; 0 unresolved inclusions; 2 syntax errors; 2 unresolved names (0.042%)
