@@ -1,21 +1,14 @@
-22:33:59 **** Incremental Build of configuration Debug for project stack_activities ****
+13:53:15 **** Incremental Build of configuration Debug for project configurable_exceptions ****
 make -j10 all 
-arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I../Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
-arm-none-eabi-gcc -o "stack_activities.elf" @"objects.list"   -mcpu=cortex-m4 -T"/Users/ggpai/Desktop/Prog_arm/stack_activities/STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="stack_activities.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: stack_activities.elf
- 
-arm-none-eabi-size  stack_activities.elf 
-arm-none-eabi-objdump -h -S stack_activities.elf  > "stack_activities.list"
+arm-none-eabi-size  configurable_exceptions.elf 
    text	   data	    bss	    dec	    hex	filename
-   5248	     92	   1900	   7240	   1c48	stack_activities.elf
+   5252	     92	   1900	   7244	   1c4c	configurable_exceptions.elf
 Finished building: default.size.stdout
  
-Finished building: stack_activities.list
- 
-22:34:08 **** Incremental Build of configuration Debug for project stack_activities ****
+13:53:41 **** Incremental Build of configuration Debug for project configurable_exceptions ****
 make -j10 all 
-arm-none-eabi-size  stack_activities.elf 
+arm-none-eabi-size  configurable_exceptions.elf 
    text	   data	    bss	    dec	    hex	filename
-   5248	     92	   1900	   7240	   1c48	stack_activities.elf
+   5252	     92	   1900	   7244	   1c4c	configurable_exceptions.elf
 Finished building: default.size.stdout
  
