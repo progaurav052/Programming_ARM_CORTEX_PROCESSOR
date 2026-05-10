@@ -52,14 +52,7 @@ void MemManage_Handler(void)
 {
 	while(1);
 }
-
-__attribute__ ((naked)) void UsageFault_Handler(void)
-{
-	__asm("MRS r0,MSP");
-	__asm("B UsageFault_Handler_c");
-	// contents of r0 becone first argument of calle , in our case r0 contains MSP
-}
-void UsageFault_Handler_c(uint32_t *pBaseStackFrame)
+void UsageFault_Handler(void)
 {
 
 	// print the stacked contents during exception entry / interrupt entry
@@ -68,21 +61,14 @@ void UsageFault_Handler_c(uint32_t *pBaseStackFrame)
 
 
 	//Method 2
-	uint32_t *pUFSR = (uint32_t*)0xE000ED2A;
+	/*uint32_t *pUFSR = (uint32_t*)0xE000ED2A;
 	// decode due to which usage fault happened
 	printf("Exception : Usage fault\n");
-	printf("UFSR = %lx\n",(*pUFSR ) & (0xFFFF));
-	printf("MSP = %p\n",pBaseStackFrame);
-	printf("Value of R0 = %lx\n",pBaseStackFrame[0]);
-	printf("Value of R1 = %lx\n",pBaseStackFrame[1]);
-	printf("Value of R2 = %lx\n",pBaseStackFrame[2]);
-	printf("Value of R3 = %lx\n",pBaseStackFrame[3]);
-	printf("Value of R12 = %lx\n",pBaseStackFrame[4]);
-	printf("Value of LR = %lx\n",pBaseStackFrame[5]);
-	printf("Value of PC = %lx\n",pBaseStackFrame[6]);
-	printf("Value of xpsr = %lx\n",pBaseStackFrame[7]);
+	printf("UFSR = %lx\n",(*pUFSR ) & (0xFFFF));*/
 
 
+	// print the stacked contents during exception entry / interrupt entry
+	// note SP , MSP , PSP is not Memory mapped its accessed using inline gcc assembly code
 
 	while(1);
 }

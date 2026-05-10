@@ -296,3 +296,19 @@
 2026-05-10 13:53:42,374 [ERROR] ConfigurationRetriever:142 - IOException on connection: PKIX path building failed: sun.security.provider.certpath.SunCertPathBuilderException: unable to find valid certification path to requested target
 2026-05-10 13:53:42,415 [ERROR] ConfigurationRetriever:142 - IOException on connection: PKIX path building failed: sun.security.provider.certpath.SunCertPathBuilderException: unable to find valid certification path to requested target
 2026-05-10 13:54:08,176 [INFO] LogOutputStream:77 - [STDOUT_REDIRECT] StartTraceHandler.execute(), success : Collect=true
+2026-05-10 14:17:49,802 [ERROR] ConfigurationRetriever:142 - IOException on connection: PKIX path building failed: sun.security.provider.certpath.SunCertPathBuilderException: unable to find valid certification path to requested target
+2026-05-10 14:17:49,845 [ERROR] ConfigurationRetriever:142 - IOException on connection: PKIX path building failed: sun.security.provider.certpath.SunCertPathBuilderException: unable to find valid certification path to requested target
+2026-05-10 14:17:49,881 [ERROR] ConfigurationRetriever:142 - IOException on connection: PKIX path building failed: sun.security.provider.certpath.SunCertPathBuilderException: unable to find valid certification path to requested target
+2026-05-10 14:27:08,645 [ERROR] ConfigurationRetriever:142 - IOException on connection: PKIX path building failed: sun.security.provider.certpath.SunCertPathBuilderException: unable to find valid certification path to requested target
+2026-05-10 14:27:08,784 [ERROR] ConfigurationRetriever:142 - IOException on connection: PKIX path building failed: sun.security.provider.certpath.SunCertPathBuilderException: unable to find valid certification path to requested target
+2026-05-10 14:27:08,837 [ERROR] ConfigurationRetriever:142 - IOException on connection: PKIX path building failed: sun.security.provider.certpath.SunCertPathBuilderException: unable to find valid certification path to requested target
+2026-05-10 14:27:29,456 [INFO] LogOutputStream:77 - [STDOUT_REDIRECT] StartTraceHandler.execute(), success : Collect=false
+2026-05-10 14:27:30,933 [INFO] LogOutputStream:77 - [STDOUT_REDIRECT] StartTraceHandler.execute(), success : Collect=true
+2026-05-10 14:27:31,940 [INFO] LogOutputStream:77 - [STDOUT_REDIRECT] StartTraceHandler.execute(), success : Collect=false
+2026-05-10 14:27:33,026 [INFO] LogOutputStream:77 - [STDOUT_REDIRECT] StartTraceHandler.execute(), success : Collect=true
+2026-05-10 14:32:23,120 [ERROR] ConfigurationRetriever:142 - IOException on connection: PKIX path building failed: sun.security.provider.certpath.SunCertPathBuilderException: unable to find valid certification path to requested target
+2026-05-10 14:32:23,158 [ERROR] ConfigurationRetriever:142 - IOException on connection: PKIX path building failed: sun.security.provider.certpath.SunCertPathBuilderException: unable to find valid certification path to requested target
+2026-05-10 14:32:23,196 [ERROR] ConfigurationRetriever:142 - IOException on connection: PKIX path building failed: sun.security.provider.certpath.SunCertPathBuilderException: unable to find valid certification path to requested target
+2026-05-10 14:32:28,882 [ERROR] ConfigurationRetriever:142 - IOException on connection: PKIX path building failed: sun.security.provider.certpath.SunCertPathBuilderException: unable to find valid certification path to requested target
+2026-05-10 14:32:28,939 [ERROR] ConfigurationRetriever:142 - IOException on connection: PKIX path building failed: sun.security.provider.certpath.SunCertPathBuilderException: unable to find valid certification path to requested target
+2026-05-10 14:32:29,016 [ERROR] ConfigurationRetriever:142 - IOException on connection: PKIX path building failed: sun.security.provider.certpath.SunCertPathBuilderException: unable to find valid certification path to requested target
