@@ -3,4 +3,4 @@
 ../Src/main.c:51:6:MemManage_Handler	1
 ../Src/main.c:56:30:UsageFault_Handler	1
 ../Src/main.c:62:6:UsageFault_Handler_c	1
-../Src/main.c:89:6:BusFault_Handler	1
+../Src/main.c:88:6:BusFault_Handler	1

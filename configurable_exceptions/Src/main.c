@@ -84,7 +84,6 @@ void UsageFault_Handler_c(uint32_t *pBaseStackFrame)
 
 
 
-	while(1);
 }
 void BusFault_Handler(void)
 {
