@@ -18,36 +18,47 @@
 
 #include <stdint.h>
 #include <stdio.h>
-
-// some stack memory calculations
-#define SIZE_TASK_STACK		1024U
-#define SIZE_SCHED_STACK	1024U
-
-#define SRAM_START		0x20000000U
-#define SIZE_SRAM		( (128) * (1024) )
-#define SRAM_END		( ( SRAM_START ) + ( SIZE_SRAM ) )
+#include "main.h"
 
 
-#define T1_STACK_START 		SRAM_END
-#define T2_STACK_START		( (SRAM_END ) - ( 1 * SIZE_TASK_STACK) )
-#define T3_STACK_START		( (SRAM_END ) - ( 2 * SIZE_TASK_STACK) )
-#define T4_STACK_START		( (SRAM_END ) - ( 3 * SIZE_TASK_STACK) )
-#define SCHED_STACK_START	( (SRAM_END ) - ( 4 * SIZE_TASK_STACK) )
-
-#define TICK_HZ 		1000
-#define SYSYTICK_TIM_CLOCK   16000000U
 
 void task1_handler(void);
 void task2_handler(void);
 void task3_handler(void);
 void task4_handler(void);
 void Systick_init(uint32_t);
+void init_scheduler_stack(uint32_t sched_top_of_stack);
+void init_task_stack(void);
+void enable_processor_faults(void);
+__attribute__((naked)) void switch_sp_to_psp(void);
+void save_psp_value(uint32_t current_psp);
+uint32_t get_psp_value(void);
+void update_next_task(void);
+
+
+uint32_t psp_of_tasks[MAX_TASKS]={T1_STACK_START,T2_STACK_START,T3_STACK_START,T4_STACK_START};
+uint32_t address_task_handlers[MAX_TASKS]={};
+uint8_t current_task=0;
 
 
 int main(void)
 {
     /* Loop forever */
+	enable_processor_faults();
+
+	init_scheduler_stack(SCHED_STACK_START);
+
+	address_task_handlers[0]= (uint32_t)task1_handler;
+	address_task_handlers[1]= (uint32_t)task2_handler;
+	address_task_handlers[2]= (uint32_t)task3_handler;
+	address_task_handlers[3]= (uint32_t)task4_handler;
+
+	init_task_stack();
+
 	Systick_init(TICK_HZ);
+
+	switch_sp_to_psp();
+	task1_handler();
 	for(;;);
 }
 
@@ -103,8 +114,136 @@ void Systick_init(uint32_t tick_hz)
 
 }
 
+__attribute__((naked)) void init_scheduler_stack(uint32_t sched_top_of_stack)
+{
+  // while dealing with stack pointer , make sure to use naked function else stack pointer wont be true
+  // they do not have epilogue and prologue sequence
+
+	__asm volatile("MSR MSP,%0"::"r"(sched_top_of_stack):);
+	__asm volatile("BX LR"); // using LR go back to main
+
+}
+void init_task_stack(void){
+	uint32_t *pPSP;
+
+	for(uint32_t i=0;i<MAX_TASKS;i++)
+	{
+		// for each task we need to store sf1 and sf2
+		pPSP=(uint32_t*)psp_of_tasks[i];
+
+		//first we will store the xpsr
+		pPSP--;
+		*pPSP = DUMMY_XPSR;
+
+		pPSP--; // PC
+		*pPSP = address_task_handlers[i];
+
+		pPSP--; //LR so it returns to thread mode with PSP as SP
+		*pPSP = 0xFFFFFFFD;
+
+		for(int j=0;j<13;j++)
+		{
+			pPSP--;
+			*pPSP=0;
+
+		}
+
+		psp_of_tasks[i]=(uint32_t)pPSP;
+
+
+
+	}
+}
+
+void enable_processor_faults(void)
+{
+	uint32_t *pSHCRS = (uint32_t*)0xE000ED24;
+
+		*pSHCRS |=(1 << 16);
+		*pSHCRS |=(1 << 17);
+		*pSHCRS |=(1 << 18);
+}
+
+uint32_t get_psp_value(void)
+{
+	return psp_of_tasks[current_task];
+}
+
+void save_psp_value(uint32_t current_psp)
+{
+	psp_of_tasks[current_task]=current_psp;
+}
+
+void update_next_task(void)
+{
+	current_task++;
+	current_task%=MAX_TASKS;
+}
+__attribute__((naked)) void switch_sp_to_psp(void)
+{
+
+
+
+   //1. initialize the PSP with TASK1 stack start address
+
+	//get the value of psp of current_task
+	__asm volatile("PUSH {LR}"); //preserve LR which connects back to main
+	__asm volatile("BL get_psp_value");
+	//here the value of LR will get corrupted , so we cant go back to main , so first save LR
+	__asm volatile("MSR PSP,R0");
+	__asm volatile("POP {LR}");
+
+
+	//2. change SP to PSP using control register
+	__asm volatile("MOV R0,#0x02");
+	__asm volatile("MSR CONTROL,R0");
+	__asm volatile("BX LR"); // go back using LR
+
+
+
+}
+
+
+
+void HardFault_Handler(void)
+{
+	printf("Inside the Hardfault handler\n");
+	while(1);
+}
+
+void MemManage_Handler(void)
+{
+	printf("Inside the MemManage fault Handler");
+	while(1);
+}
+void BusFault_Handler(void)
+{
+	printf("Inside the Bus Fault Handler\n");
+	while(1);
+}
+
 void SysTick_Handler(void)
 {
-	printf("Inside Systick Handler");
+     /*Save the context of current Task*/
+
+	//1. get current running task's PSP value
+	__asm volatile("MRS R0,PSP");
+	//2. Using that PSP value store SF2 (R4 to R11)
+	__asm volatile("STMDB R0!,{R4-R11}");
+	//3. Save the current value of PSP
+	__asm volatile("BL save_psp_value");// will pass value of R0 as argument , according procedure call standard
+
+
+	/*Retrieve the context of next task */
+	//1. Decide the next task to run
+	__asm volatile("BL update_next_task");
+
+	//2. get its past PSP value
+	__asm volatile("BL get_psp_value"); // return value will be stored in R0
+	//3. USing that PSP value retrieve Sf2 (r4-r11) , load back the stacked value to the register
+	__asm volatile("LDMIA R0!,{R4-R11}");
+
+	//4. update PSP and exit
+	__asm volatile("MSR PSP,R0");
 
 }
