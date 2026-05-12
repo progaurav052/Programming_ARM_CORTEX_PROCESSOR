@@ -23,9 +23,19 @@
 #define T4_STACK_START		( (SRAM_END ) - ( 3 * SIZE_TASK_STACK) )
 #define SCHED_STACK_START	( (SRAM_END ) - ( 4 * SIZE_TASK_STACK) )
 
-#define TICK_HZ 		1000
+#define TICK_HZ 		1
 #define SYSYTICK_TIM_CLOCK   16000000U
 #define MAX_TASKS  		4
 #define DUMMY_XPSR      0x01000000
+
+
+// Peripheral register address definitions
+#define RCC_BASE    		 ((uint32_t*)0x40023800)
+#define GPIOD_BASE   		 ((uint32_t*)0x40020C00)
+
+#define RCC_AHB1ENR 		 ((uint32_t*)0x40023830)
+#define GPIOD_MODER          ((uint32_t*)GPIOD_BASE)
+#define GPIOD_ODR			 ((uint32_t*)0x40020C14)
+
 
 #endif /* MAIN_H_ */

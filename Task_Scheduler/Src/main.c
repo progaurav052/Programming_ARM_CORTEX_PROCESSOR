@@ -34,6 +34,11 @@ __attribute__((naked)) void switch_sp_to_psp(void);
 void save_psp_value(uint32_t current_psp);
 uint32_t get_psp_value(void);
 void update_next_task(void);
+void rcc_init(void);
+void gpiod_init(void);
+void delay(void);
+void gpiod_led_toggle(uint16_t pin);
+
 
 
 uint32_t psp_of_tasks[MAX_TASKS]={T1_STACK_START,T2_STACK_START,T3_STACK_START,T4_STACK_START};
@@ -46,6 +51,9 @@ int main(void)
     /* Loop forever */
 	enable_processor_faults();
 
+	rcc_init();
+	gpiod_init();
+
 	init_scheduler_stack(SCHED_STACK_START);
 
 	address_task_handlers[0]= (uint32_t)task1_handler;
@@ -55,17 +63,24 @@ int main(void)
 
 	init_task_stack();
 
-	Systick_init(TICK_HZ);
+	Systick_init(TICK_HZ); // till this point msp is used
 
-	switch_sp_to_psp();
+
+	switch_sp_to_psp(); //before running task1 , we have chnages sp to point to task1 private stack
 	task1_handler();
 	for(;;);
 }
 
+void delay(void){
+	for(uint32_t i=0;i<300000;i++);
+
+}
 void task1_handler(void)
 {
 	while(1)
 	{
+		gpiod_led_toggle(12);
+		delay();
 		printf("inside task1 handler\n");
 	}
 }
@@ -73,6 +88,8 @@ void task2_handler(void)
 {
 	while(1)
 	{
+		gpiod_led_toggle(13);
+		delay();
 		printf("inside task2 handler\n");
 	}
 }
@@ -80,6 +97,8 @@ void task3_handler(void)
 {
 	while(1)
 	{
+		gpiod_led_toggle(14);
+		delay();
 		printf("inside task3 handler\n");
 	}
 
@@ -88,6 +107,8 @@ void task4_handler(void)
 {
 	while(1)
 	{
+		gpiod_led_toggle(15);
+		delay();
 		printf("inside task4 handler\n");
 	}
 }
@@ -159,9 +180,22 @@ void enable_processor_faults(void)
 {
 	uint32_t *pSHCRS = (uint32_t*)0xE000ED24;
 
-		*pSHCRS |=(1 << 16);
-		*pSHCRS |=(1 << 17);
-		*pSHCRS |=(1 << 18);
+		*pSHCRS |=(1 << 16); // usage fault
+		*pSHCRS |=(1 << 17); // mem manage fault
+		*pSHCRS |=(1 << 18); // Bus fault
+}
+
+void rcc_init(){
+	*(RCC_AHB1ENR) |=(0x1 << 3);
+}
+void gpiod_init(){
+	//moder as output
+	*(GPIOD_MODER)|=(0x55 << 24);
+}
+
+void gpiod_led_toggle(uint16_t pin)
+{
+	*(GPIOD_ODR)^=(0x1 << pin);
 }
 
 uint32_t get_psp_value(void)
@@ -187,7 +221,7 @@ __attribute__((naked)) void switch_sp_to_psp(void)
    //1. initialize the PSP with TASK1 stack start address
 
 	//get the value of psp of current_task
-	__asm volatile("PUSH {LR}"); //preserve LR which connects back to main
+	__asm volatile("PUSH {LR}"); //preserve LR which connects back to main , this line was added later
 	__asm volatile("BL get_psp_value");
 	//here the value of LR will get corrupted , so we cant go back to main , so first save LR
 	__asm volatile("MSR PSP,R0");
@@ -222,8 +256,11 @@ void BusFault_Handler(void)
 	while(1);
 }
 
-void SysTick_Handler(void)
+__attribute__((naked)) void SysTick_Handler(void)
 {
+
+	// systick handler's job is to save current running tasks context and load next task
+
      /*Save the context of current Task*/
 
 	//1. get current running task's PSP value
@@ -231,6 +268,7 @@ void SysTick_Handler(void)
 	//2. Using that PSP value store SF2 (R4 to R11)
 	__asm volatile("STMDB R0!,{R4-R11}");
 	//3. Save the current value of PSP
+	__asm volatile("PUSH {LR}");
 	__asm volatile("BL save_psp_value");// will pass value of R0 as argument , according procedure call standard
 
 
@@ -245,5 +283,17 @@ void SysTick_Handler(void)
 
 	//4. update PSP and exit
 	__asm volatile("MSR PSP,R0");
+
+	__asm volatile("POP {LR}");
+
+	__asm volatile("BX LR");
+
+	//since we have made this handler an naked function , return instructions wont be there
+	// so we have to make the return manually
+	// handler exit happens when we place the EXE_return in PC
+
+
+	//Note : this Design will cause extra sf1 and sf2 in Task1's private stack
+	// Please try this code flow in book , you will be able to understand
 
 }
