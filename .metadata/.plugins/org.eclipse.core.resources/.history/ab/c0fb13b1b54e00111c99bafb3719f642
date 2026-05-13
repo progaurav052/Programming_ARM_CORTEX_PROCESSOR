@@ -243,7 +243,7 @@ void schedule()
 void task_delay(uint32_t tick_count){
 	if(current_task)
 	{
-	user_tasks[current_task].block_count=global_tick_count + tick_count; // this is done keeping in my what will be the global tick count when unblocking is done
+	user_tasks[current_task].block_count=global_tick_count + tick_count;
 	user_tasks[current_task].current_state=TASK_BLOCKED_STATE;
 	schedule();
 	}
