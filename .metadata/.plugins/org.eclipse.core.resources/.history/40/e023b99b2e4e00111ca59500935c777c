@@ -23,7 +23,7 @@
 #define T4_STACK_START		( (SRAM_END ) - ( 3 * SIZE_TASK_STACK) )
 #define SCHED_STACK_START	( (SRAM_END ) - ( 4 * SIZE_TASK_STACK) )
 
-#define TICK_HZ 		1000
+#define TICK_HZ 		1
 #define SYSYTICK_TIM_CLOCK   16000000U
 #define MAX_TASKS  		4
 #define DUMMY_XPSR      0x01000000
@@ -36,18 +36,6 @@
 #define RCC_AHB1ENR 		 ((uint32_t*)0x40023830)
 #define GPIOD_MODER          ((uint32_t*)GPIOD_BASE)
 #define GPIOD_ODR			 ((uint32_t*)0x40020C14)
-
-#define DELAY_COUNT_1MS 		1250U
-#define DELAY_COUNT_1S			( 1000U * DELAY_COUNT_1MS)
-#define DELAY_COUNT_500MS		( 500U * DELAY_COUNT_1MS)
-#define DELAY_COUNT_250MS		( 250U * DELAY_COUNT_1MS)
-#define DELAY_COUNT_125MS		( 125U * DELAY_COUNT_1MS)
-
-#define TASK_RUNNING_STATE		0x00
-#define TASK_BLOCKED_STATE		0x01
-
-
-
 
 
 #endif /* MAIN_H_ */

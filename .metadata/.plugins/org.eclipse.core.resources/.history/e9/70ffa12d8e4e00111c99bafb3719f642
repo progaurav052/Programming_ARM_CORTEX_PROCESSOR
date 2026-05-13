@@ -181,7 +181,7 @@ void init_task_stack(void){
 		*pPSP = DUMMY_XPSR;
 
 		pPSP--; // PC
-		*pPSP = (uint32_t)user_tasks[i].task_handler;
+		*pPSP = user_tasks[i].task_handler
 
 		pPSP--; //LR so it returns to thread mode with PSP as SP
 		*pPSP = 0xFFFFFFFD;

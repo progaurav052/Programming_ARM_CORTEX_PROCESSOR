@@ -174,14 +174,14 @@ void init_task_stack(void){
 	for(uint32_t i=0;i<MAX_TASKS;i++)
 	{
 		// for each task we need to store sf1 and sf2
-		pPSP=(uint32_t*)user_tasks[i].psp_value;
+		pPSP=(uint32_t*)psp_of_tasks[i];
 
 		//first we will store the xpsr
 		pPSP--;
 		*pPSP = DUMMY_XPSR;
 
 		pPSP--; // PC
-		*pPSP = (uint32_t)user_tasks[i].task_handler;
+		*pPSP = address_task_handlers[i];
 
 		pPSP--; //LR so it returns to thread mode with PSP as SP
 		*pPSP = 0xFFFFFFFD;
@@ -193,7 +193,7 @@ void init_task_stack(void){
 
 		}
 
-		user_tasks[i].psp_value=(uint32_t)pPSP;
+		psp_of_tasks[i]=(uint32_t)pPSP;
 
 
 
@@ -224,12 +224,12 @@ void gpiod_led_toggle(uint16_t pin)
 
 uint32_t get_psp_value(void)
 {
-	return 	user_tasks[current_task].psp_value;
+	return psp_of_tasks[current_task];
 }
 
 void save_psp_value(uint32_t current_psp)
 {
-	user_tasks[current_task].psp_value=current_psp;
+	psp_of_tasks[current_task]=current_psp;
 }
 
 void update_next_task(void)
