@@ -22,5 +22,5 @@
 ../Src/main.c:311:6:BusFault_Handler	8	static
 ../Src/main.c:318:6:update_global_tick_count	4	static
 ../Src/main.c:322:6:unblock_tasks	16	static
-../Src/main.c:337:7:Systick_Handler	16	static
+../Src/main.c:337:7:SysTick_Handler	16	static
 ../Src/main.c:354:29:PendSV_Handler	0	static,ignoring_inline_asm
